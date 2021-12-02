@@ -138,6 +138,41 @@ def serve_pil_image(pil_img):
     img_io.seek(0)
     return send_file(img_io, mimetype='image/jpeg')
 
+
+# expose to internet
+import json
+import requests
+
+def get_ngrok_url():
+    url = "http://localhost:4040/api/tunnels/"
+    res = requests.get(url)
+    res_unicode = res.content.decode("utf-8")
+    res_json = json.loads(res_unicode)
+    for i in res_json["tunnels"]:
+        if i['name'] == 'command_line':
+            return i['public_url']
+            break
+
+try:
+    print(' * Tunnel URL:', get_ngrok_url())
+    with open('readme.txt', 'w') as f:
+        f.write(get_ngrok_url())
+except:
+    print('Not exposed to internet / Start NGROG')
+    with open('readme.txt', 'w') as f:
+        f.write('no service')
+
+# END: expose to internet
+
+# from pyngrok import ngrok
+
+# def start_ngrok():
+#     url = ngrok.connect(8000).public_url
+#     print(' * Tunnel URL:', url)
+
+# #if app.config['START_NGROK']:
+# start_ngrok()
+
 #flask integration
 app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
@@ -167,7 +202,8 @@ def index():
         return "OK"
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    #app.run(host='0.0.0.0', port=8000, debug=True)
+    app.run(host='0.0.0.0', port=8000, debug=False)
 
 
 #im = Image.open(os.path.join(input_path, im_name))

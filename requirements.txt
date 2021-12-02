@@ -3,9 +3,22 @@ pillow
 flask
 # for anaconda use first # for google direct link for linux
 #torch==1.10.0+cu102
-https://download.pytorch.org/whl/cu102/torch-1.10.0%2Bcu102-cp39-cp39-linux_x86_64.whl
+#https://download.pytorch.org/whl/cu102/torch-1.10.0%2Bcu102-cp39-cp39-linux_x86_64.whl
 #https://download.pytorch.org/whl/cu102/torch-1.10.0%2Bcu102-cp39-cp39-win_amd64.whl
 
 #torchvision==0.11.1+cu102 -f https://download.pytorch.org/whl/cu102/torch_stable.html
-https://download.pytorch.org/whl/cu102/torchvision-0.11.1%2Bcu102-cp39-cp39-linux_x86_64.whl
+#https://download.pytorch.org/whl/cu102/torchvision-0.11.1%2Bcu102-cp39-cp39-linux_x86_64.whl
 #https://download.pytorch.org/whl/cu102/torchvision-0.11.1%2Bcu102-cp39-cp39-win_amd64.whl
+
+# tunel service https://blog.miguelgrinberg.com/post/access-localhost-from-your-phone-or-from-anywhere-in-the-world
+pyngrok
+https://pyngrok.readthedocs.io/en/latest/index.html
+conda update -n base -c defaults conda
+
+requests
+json
+
+CD to ngrok repo
+CMD: ngrok http 8000
+CD to service repo
+CMD: python remove_background.py
