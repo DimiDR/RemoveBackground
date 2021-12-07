@@ -22,3 +22,10 @@ CD to ngrok repo
 CMD: ngrok http 8000
 CD to service repo
 CMD: python remove_background.py
+
+# flask prod 
+# https://stackoverflow.com/questions/51025893/flask-at-first-run-do-not-use-the-development-server-in-a-production-environmen
+# https://flask.palletsprojects.com/en/2.0.x/tutorial/deploy/
+waitress
+gunicorn
+fcntl # only conda

@@ -1,0 +1,10 @@
+https://github.com/ZHKKKe/MODNet
+https://www.pixmiller.com/de/upload/
+https://colab.research.google.com/drive/1GANpbKT06aEFiW-Ssx0DQnnEADcXwQG6?usp=sharing
+
+Google Cloud Project: jandiprint-removebackground
+gcloud config set project jandiprint-removebackground
+gcloud builds submit --tag gcr.io/jandiprint-removebackground/index
+gcloud run deploy --image gcr.io/jandiprint-removebackground/index --platform managed
+
+https://cloud.google.com/run/docs/troubleshooting

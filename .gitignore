@@ -3,9 +3,4 @@
 *.pyd
 __pycache__
 Coding/backbones/__pycache__
-Coding/interface.py
-HowTo
-ServiceTesting
-Remove_Background.ipynb
 .ipynb_checkpoints
-Links.txt
