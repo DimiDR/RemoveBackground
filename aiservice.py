@@ -5,6 +5,7 @@ import numpy as np
 from PIL import Image
 import json
 from waitress import serve
+import datetime as dt
 
 # pip install numpy
 # 07.11.2021 current numpy-1.21.4
@@ -177,29 +178,41 @@ def serve_pil_image(pil_img):
 #flask integration
 app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
+
 def index():
     if request.method == "POST":
-        print('Jemand fragt an')
-        file = request.files.get('file')
-        if file is None or file.filename == "":
-            return jsonify({"error": "no file"})
-        try:
-            # get hyper parameter
-            data = json.load(request.files['data'])
-            ref_size = data['ref-size']
-            # get image data
-            image_bytes = file.read()
-            pillow_img = Image.open(io.BytesIO(image_bytes))
-            im_no_background = process_image(file.filename, pillow_img, ref_size, model_source)
-            #combine images
-            full_img_no_background = combined_display(pillow_img, im_no_background)
-            # greyscale will have less data, but it needs to be processed in the frontend
-            if data['greyscale'] == 'Yes':
-                return serve_pil_image(im_no_background)
-            else:
-                return serve_pil_image(full_img_no_background)
-        except Exception as e:
-            return jsonify({"error": str(e)})
+        #print('DateTime: {} - IP: {} - POST Request'.format(dt.datetime.fromtimestamp(int("1284101485")).strftime('%Y-%m-%d %H:%M:%S'), request.remote_addr))
+        print('{} - {} - POST Request'.format(request.remote_addr, dt.datetime.fromtimestamp(int("1284101485")).strftime('%Y-%m-%d %H:%M:%S')))
+        
+        data = json.load(request.files['data'])
+        key = data['key']
+        if ( key == '*HY!cE!AY8EY@W16*RtfG21y34'):
+            #print('not authorized')
+            #return "not authorized"
+            #else:
+            file = request.files.get('file')
+            if file is None or file.filename == "":
+                return jsonify({"error": "no file"})
+            try:
+                # get hyper parameter
+                #data = json.load(request.files['data'])
+                ref_size = data['ref-size']
+                # get image data
+                image_bytes = file.read()
+                pillow_img = Image.open(io.BytesIO(image_bytes))
+                im_no_background = process_image(file.filename, pillow_img, ref_size, model_source)
+                #combine images
+                full_img_no_background = combined_display(pillow_img, im_no_background)
+                # greyscale will have less data, but it needs to be processed in the frontend
+                if data['greyscale'] == 'Yes':
+                    return serve_pil_image(im_no_background)
+                else:
+                    return serve_pil_image(full_img_no_background)
+            except Exception as e:
+                return jsonify({"error": str(e)})
+        else:
+            print('not authorized')
+            return "not authorized"
     if request.method == "GET":
         return "OK"
 
